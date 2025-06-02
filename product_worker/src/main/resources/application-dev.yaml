@@ -1,0 +1,26 @@
+server:
+  port: ${port}
+spring:
+  application:
+    name: products.worker
+aws:
+  endpoint: http://localhost:4566
+  access-key-id: dummy-access-key
+  secret-key: dummy-secret-key
+  dynamodb:
+    region: us-east-1
+    table: marketplace-test
+  sqs:
+    region: us-east-1
+    create_queue:
+      queue_url: aq
+      max_message: 50
+      wait_time: 5
+    update_queue:
+      queue_url: aq
+      max_message: 50
+      wait_time: 5
+    delete_queue:
+      queue_url: a
+      max_message: 50
+      wait_time: 5
