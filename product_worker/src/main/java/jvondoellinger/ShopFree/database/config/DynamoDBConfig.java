@@ -16,10 +16,7 @@ import java.net.URI;
 @ConfigurationProperties(prefix = "aws.dynamodb")
 public class DynamoDBConfig {
     private final AwsBaseConfig awsConfig;
-
-    // Settings from application-?.yaml
-    protected String table;
-    protected String region; // AWS region
+    private String table;
 
     public DynamoDBConfig(AwsBaseConfig awsConfig) {
         this.awsConfig = awsConfig;
@@ -27,15 +24,15 @@ public class DynamoDBConfig {
 
     @Bean
     public DynamoDbAsyncClient dynamoDbAsyncClient() {
-        return DynamoDbAsyncClient.builder()
-                .endpointOverride(URI.create(awsConfig.getEndpoint()))
-                .region(Region.of(region))
+        System.out.println(awsConfig.getCredentials().getAccessKey());
+        return DynamoDbAsyncClient.builder().endpointOverride(URI.create(awsConfig.getEndpoint().getStatic()))
+                .region(Region.of(awsConfig.getRegion().getStatic()))
                 .credentialsProvider(StaticCredentialsProvider.create(
-                        AwsBasicCredentials.create(awsConfig.getAccessKeyId(), awsConfig.getSecretKey())
+                        AwsBasicCredentials.create(awsConfig.getCredentials().getAccessKey(),
+                                awsConfig.getCredentials().getSecretKey())
                 ))
                 .build();
     }
-
     @Bean
     public DynamoDbEnhancedAsyncClient dynamoDbEnhancedAsyncClient(DynamoDbAsyncClient dynamoDbAsyncClient) {
         return DynamoDbEnhancedAsyncClient.builder()
@@ -44,4 +41,11 @@ public class DynamoDBConfig {
     }
 
 
+    public String getTable() {
+        return table;
+    }
+
+    public void setTable(String table) {
+        this.table = table;
+    }
 }

@@ -1,26 +1,24 @@
 server:
   port: ${port}
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: products.worker
-aws:
-  endpoint: http://localhost:4566
-  access-key-id: dummy-access-key
-  secret-key: dummy-secret-key
+    cloud:
+      aws:
+        endpoint:
+          static: http://localhost:4566
+        region:
+          static: ${AWS_REGION}
+        credentials:
+          access-key: ${AWS_ACCESS_KEY_ID}
+          secret-key: ${AWS_SECRET_ACCESS_KEY}
+        sqs:
+          endpoint: http://localhost:4566
+          listener:
+            max-messages-per-poll: 10
+            wait-time-out: 10
+aws: # Custom
   dynamodb:
-    region: us-east-1
-    table: marketplace-test
-  sqs:
-    region: us-east-1
-    create_queue:
-      queue_url: aq
-      max_message: 50
-      wait_time: 5
-    update_queue:
-      queue_url: aq
-      max_message: 50
-      wait_time: 5
-    delete_queue:
-      queue_url: a
-      max_message: 50
-      wait_time: 5
+    table: "marketplace-test"

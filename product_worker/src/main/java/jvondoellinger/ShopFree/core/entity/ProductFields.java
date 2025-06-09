@@ -1,4 +1,4 @@
-package jvondoellinger.ShopFree.fields;
+package jvondoellinger.ShopFree.core.entity;
 
 import java.math.BigDecimal;
 
@@ -7,6 +7,7 @@ public class ProductFields {
     protected String name;
     protected BigDecimal amount;
 
+    // Getters
     public String getName() {
         return name;
     }
@@ -17,14 +18,14 @@ public class ProductFields {
         return amount;
     }
 
-    protected void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
+    // Setters
     protected void setPublishedBy(String publishedBy) {
         this.publishedBy = publishedBy;
     }
-    protected void setProduct(String name) {
+    protected void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+    protected void setName(String name) {
         this.name = name;
     }
-
 }

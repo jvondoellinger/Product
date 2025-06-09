@@ -5,7 +5,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProductValidator {
-    public void validate(IProductValidator validator, Product product) {
+    private void validate(IProductValidator validator, Product product) {
         validator.validate(product);
+    }
+
+    public void validate(Product product) {
+        validate(new AmountValidator(), product);
+        validate(new NameValidator(), product);
     }
 }

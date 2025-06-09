@@ -3,7 +3,6 @@ package jvondoellinger.ShopFree.core.strategy.product;
 import jvondoellinger.ShopFree.core.entity.Product;
 
 public class NameValidator implements IProductValidator {
-
     @Override
     public void validate(Product source) {
         var name = source.getName();

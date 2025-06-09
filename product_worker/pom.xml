@@ -28,7 +28,21 @@
     </scm>
     <properties>
         <java.version>23</java.version>
+        <aws.sdk.version>2.28.22</aws.sdk.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.awspring.cloud</groupId>
+                <artifactId>spring-cloud-aws-dependencies</artifactId>
+                <version>3.3.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency> <!-- Spring Boot -->
             <groupId>org.springframework.boot</groupId>
@@ -49,19 +63,24 @@
         <dependency> <!-- SQS Messagery -->
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>sqs</artifactId>
-            <version>2.28.22</version>
+            <version>${aws.sdk.version}</version>
         </dependency>
 
         <dependency> <!-- DynamoDB - NoSql database -->
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>dynamodb</artifactId>
-            <version>2.25.35</version>
+            <version>${aws.sdk.version}</version>
         </dependency>
 
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>dynamodb-enhanced</artifactId>
-            <version>2.25.35</version> <!-- mesma versão do SDK -->
+            <version>${aws.sdk.version}</version> <!-- mesma versão do SDK -->
+        </dependency>
+
+        <dependency>
+            <groupId>io.awspring.cloud</groupId>
+            <artifactId>spring-cloud-aws-starter-sqs</artifactId>
         </dependency>
     </dependencies>
 

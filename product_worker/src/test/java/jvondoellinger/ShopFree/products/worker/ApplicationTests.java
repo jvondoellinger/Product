@@ -1,13 +1,44 @@
 package jvondoellinger.ShopFree.products.worker;
 
+import jvondoellinger.ShopFree.core.entity.Product;
+import jvondoellinger.ShopFree.products.worker.creation.CrudsProducts;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import reactor.core.publisher.Flux;
 
 @SpringBootTest
 class ApplicationTests {
+    @Autowired
+    private CrudsProducts products;
 
     @Test
-    void contextLoads() {
+    void createEntities() {
+        products.createLoop();
     }
 
+    @Test
+    void batchCreateEntities() {
+        products.batchCreate();
+    }
+
+    @Test
+    void batchDeleteEntities() {
+        products.batchDelete();
+    }
+
+    @Test
+    void deleteEntities() {
+        products.deleteLoop();
+    }
+
+    @Test
+    void batchUpdateEntities() {
+        products.batchUpdate();
+    }
+
+    @Test
+    void updateEntities() {
+        products.updateLoop();
+    }
 }
