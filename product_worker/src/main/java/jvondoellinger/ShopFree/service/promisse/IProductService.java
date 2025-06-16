@@ -4,8 +4,6 @@ import jvondoellinger.ShopFree.core.entity.Product;
 import jvondoellinger.ShopFree.core.entity.ProductFields;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-
 public interface IProductService {
     /// Requires ID
     Mono<Void> delete(Product product);

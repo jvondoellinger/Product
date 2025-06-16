@@ -28,18 +28,26 @@ for i in {1..30}; do
   sleep 1
 done
 
-
-# Exportar variáveis AWS CLI
 export AWS_ACCESS_KEY_ID=test
 export AWS_SECRET_ACCESS_KEY=test
 export AWS_REGION=$AWS_REGION
 
-# Criar a fila SQS
+echo "📬 Criando fila SQS: $QUEUE_NAME"
+aws --endpoint-url=$ENDPOINT_URL sqs create-queue --queue-name $QUEUE_NAME || echo "⚠️ Fila já existe."
+
+QUEUE_NAME="product-update-test"
+
+
+echo "📬 Criando fila SQS: $QUEUE_NAME"
+aws --endpoint-url=$ENDPOINT_URL sqs create-queue --queue-name $QUEUE_NAME || echo "⚠️ Fila já existe."
+
+QUEUE_NAME="product-delete-test"
+
+
 echo "📬 Criando fila SQS: $QUEUE_NAME"
 aws --endpoint-url=$ENDPOINT_URL sqs create-queue --queue-name $QUEUE_NAME || echo "⚠️ Fila já existe."
 
 
-# Criar a tabela DynamoDB
 echo "🗃️ Criando tabela DynamoDB: $TABLE_NAME"
 
 CREATE_OUTPUT=$(aws --endpoint-url=$ENDPOINT_URL dynamodb create-table \
@@ -48,12 +56,12 @@ CREATE_OUTPUT=$(aws --endpoint-url=$ENDPOINT_URL dynamodb create-table \
   --key-schema AttributeName=id,KeyType=HASH \
   --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 2>&1)
 
-# Verifica se a tabela já existe
+
 if echo "$CREATE_OUTPUT" | grep -q "Table already exists"; then
   echo "⚠️ Tabela $TABLE_NAME já existe."
 else
   echo "✅ Tabela criada com sucesso!"
-  echo "$CREATE_OUTPUT" | jq . # Se quiser formatar com jq (opcional)
+  echo "$CREATE_OUTPUT" | jq .
 fi
 
 

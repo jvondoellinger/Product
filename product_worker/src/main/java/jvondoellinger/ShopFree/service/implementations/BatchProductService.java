@@ -1,17 +1,16 @@
 package jvondoellinger.ShopFree.service.implementations;
 
+import jvondoellinger.ShopFree.annotation.BadCode;
 import jvondoellinger.ShopFree.core.entity.Product;
 import jvondoellinger.ShopFree.core.entity.ProductBuilder;
 import jvondoellinger.ShopFree.core.entity.ProductFields;
 import jvondoellinger.ShopFree.core.repository.IProductRepository;
 import jvondoellinger.ShopFree.service.promisse.IBatchProductService;
-import jvondoellinger.ShopFree.service.promisse.IProductService;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class BatchProductService implements IBatchProductService {
@@ -23,18 +22,15 @@ public class BatchProductService implements IBatchProductService {
 
     @Override
     public Mono<Void> batchCreate(List<ProductFields> fields) {
-        List<Product> products = new ArrayList<>();
-        for (var f : fields) {
-            var product = ProductBuilder.builder()
+        List<Product> products = fields.stream()
+                .map(f -> ProductBuilder.builder()
                             .name(f.getName())
                             .publishedBy(f.getPublishedBy())
                             .amount(f.getAmount())
-                            .build();
-            products.add(product);
-        }
+                            .build()).toList();
         return repository.batchCreate(products);
     }
-
+    @BadCode
     @Override
     public Mono<Void> batchUpdate(List<Product> products) {
         return repository.batchUpdate(products);

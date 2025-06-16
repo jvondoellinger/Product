@@ -76,4 +76,6 @@ public class AwsBaseConfig {
     public void setEndpoint(Endpoint endpoint) {
         this.endpoint = endpoint;
     }
+
+
 }

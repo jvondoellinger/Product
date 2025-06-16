@@ -5,12 +5,14 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 public class Product extends ProductFields {
+    private String id; // identifier
+    private OffsetDateTime createdAt ;
+    private OffsetDateTime updatedAt;
 
-    private String id = UUID.randomUUID().toString(); // identifier
-    private OffsetDateTime createdAt = OffsetDateTime.now();
-    private OffsetDateTime updatedAt = OffsetDateTime.now();
-
-    public Product() {
+    protected Product() {
+        id = UUID.randomUUID().toString();
+        createdAt = OffsetDateTime.now();
+        updatedAt = OffsetDateTime.now();
     }
 
     protected Product(String publishedBy, String name, BigDecimal amount) {
@@ -20,7 +22,6 @@ public class Product extends ProductFields {
         id = UUID.randomUUID().toString();
         createdAt = OffsetDateTime.now();
         updatedAt = OffsetDateTime.now();
-
     }
 
     // Getters
@@ -48,4 +49,9 @@ public class Product extends ProductFields {
     protected void setUpdatedAt(OffsetDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    public void onUpdated() {
+        this.updatedAt = OffsetDateTime.now();
+    }
+
 }

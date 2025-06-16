@@ -28,7 +28,6 @@ public class CrudsProducts {
         for (int i = 0; i < MAX_SIZE; i++) {
             var p = factory.produce("Batata", "123"+i, BigDecimal.valueOf(1500.20));
             products.add(p);
-            System.out.println(p.getId());
             repository.create(p).block();
         }
     }
@@ -55,6 +54,7 @@ public class CrudsProducts {
         List<Product> products = new ArrayList<>();
         for (int i = 0; i < MAX_SIZE; i++) {
             products.add(factory.produce("System", "System", new BigDecimal(i)));
+            products.add(factory.produce("System", "System", new BigDecimal(1500)));
         }
         repository.batchCreate(products).block();
     }

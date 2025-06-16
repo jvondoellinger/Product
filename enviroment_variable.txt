@@ -1,1 +1,1 @@
-database=marketplace.payment-test;db_password=batata123;db_username=jorge;port=5051;SPRING_PROFILES_ACTIVE=dev;AWS_SECRET_ACCESS_KEY=test;AWS_ACCESS_KEY_ID=test
+database=marketplace-test;port=5051;SPRING_PROFILES_ACTIVE=dev;AWS_SECRET_ACCESS_KEY=test;AWS_ACCESS_KEY_ID=test;AWS_REGION=sa-east-1

@@ -3,9 +3,8 @@ package jvondoellinger.ShopFree.service.promisse;
 import jvondoellinger.ShopFree.core.entity.Product;
 import jvondoellinger.ShopFree.core.entity.ProductFields;
 import reactor.core.publisher.Mono;
-
 import java.util.List;
-import java.util.Map;
+
 
 public interface IBatchProductService {
     Mono<Void> batchCreate(List<ProductFields> fields);
