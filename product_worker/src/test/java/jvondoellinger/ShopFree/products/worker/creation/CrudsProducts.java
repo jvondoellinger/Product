@@ -54,7 +54,11 @@ public class CrudsProducts {
     public void batchCreate() {
         List<Product> products = new ArrayList<>();
         for (int i = 0; i < MAX_SIZE; i++) {
+<<<<<<< HEAD
             products.add(factory.produce("System", "System", new BigDecimal(i)));
+=======
+            products.add(factory.produce("System", "System", new BigDecimal(1500)));
+>>>>>>> 63f2632 (update - working)
         }
         repository.batchCreate(products).block();
     }

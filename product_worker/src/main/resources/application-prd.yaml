@@ -1,5 +1,22 @@
 server:
   port: 5051
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: products.worker
+    cloud:
+      aws:
+        region:
+          static: sa-east-1
+        credentials:
+          access-key: test
+          secret-key: test
+        sqs:
+          endpoint: http://localhost:4566
+          listener:
+            max-messages-per-poll: 25
+            wait-time-out: 5
+aws: # Custom
+  dynamodb:
+    table: "marketplace-test"

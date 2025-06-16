@@ -10,12 +10,13 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbAsyncTable;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedAsyncClient;
 import software.amazon.awssdk.enhanced.dynamodb.model.BatchWriteItemEnhancedRequest;
 import software.amazon.awssdk.enhanced.dynamodb.model.WriteBatch;
+
 import java.util.List;
 
 @Repository
 public class ProductRepository implements IProductRepository {
     private final DynamoDbAsyncTable<Product> table;
-    private DynamoDbEnhancedAsyncClient client;
+    private final DynamoDbEnhancedAsyncClient client;
 
     public ProductRepository(DynamoDbAsyncTable<Product> table, DynamoDbEnhancedAsyncClient client) {
         this.table = table;
@@ -49,6 +50,7 @@ public class ProductRepository implements IProductRepository {
         }
         var writeBatchBuilder = getBuilder();
         for (var product : partialProduct) {
+            product.onUpdated();
             writeBatchBuilder.addPutItem(product);
         }
         return Mono.just(client.batchWriteItem(getRequest(writeBatchBuilder)))

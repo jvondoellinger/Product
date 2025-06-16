@@ -21,6 +21,7 @@ public class ProductTableConfig extends DynamoDBConfig {
 
     @Bean
     public DynamoDbAsyncTable<Product> dynamoDbAsyncTable(DynamoDbEnhancedAsyncClient enhancedAsyncClient) {
+        System.out.println(super.getTable());
         return enhancedAsyncClient.table(super.getTable(), new ProductTableSchema()); // Custom schema
     }
 

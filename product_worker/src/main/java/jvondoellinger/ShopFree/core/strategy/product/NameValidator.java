@@ -1,8 +1,9 @@
 package jvondoellinger.ShopFree.core.strategy.product;
 
 import jvondoellinger.ShopFree.core.entity.Product;
+import jvondoellinger.ShopFree.core.strategy.abstractions.IValidator;
 
-public class NameValidator implements IProductValidator {
+public class NameValidator implements IValidator<Product> {
     @Override
     public void validate(Product source) {
         var name = source.getName();

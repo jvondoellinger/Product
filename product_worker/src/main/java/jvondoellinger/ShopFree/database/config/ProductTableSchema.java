@@ -4,11 +4,16 @@ import jvondoellinger.ShopFree.core.entity.Product;
 import jvondoellinger.ShopFree.core.entity.ProductBuilder;
 import software.amazon.awssdk.enhanced.dynamodb.*;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
-import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
-
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.*;
+import software.amazon.awssdk.enhanced.dynamodb.EnhancedType;
+import software.amazon.awssdk.enhanced.dynamodb.TableMetadata;
+import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ProductTableSchema implements TableSchema<Product> {
 

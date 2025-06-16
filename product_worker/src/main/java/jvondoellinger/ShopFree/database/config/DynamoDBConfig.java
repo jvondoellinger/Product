@@ -13,6 +13,7 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
 import java.net.URI;
 
 @Configuration
+
 @ConfigurationProperties(prefix = "aws.dynamodb")
 public class DynamoDBConfig {
     private final AwsBaseConfig awsConfig;
@@ -24,13 +25,12 @@ public class DynamoDBConfig {
 
     @Bean
     public DynamoDbAsyncClient dynamoDbAsyncClient() {
-        System.out.println(awsConfig.getCredentials().getAccessKey());
-        return DynamoDbAsyncClient.builder().endpointOverride(URI.create(awsConfig.getEndpoint().getStatic()))
-                .region(Region.of(awsConfig.getRegion().getStatic()))
-                .credentialsProvider(StaticCredentialsProvider.create(
-                        AwsBasicCredentials.create(awsConfig.getCredentials().getAccessKey(),
-                                awsConfig.getCredentials().getSecretKey())
-                ))
+        var uri = URI.create(awsConfig.getEndpoint().getStatic());
+        var region = Region.of(awsConfig.getRegion().getStatic());
+        var credentials = AwsBasicCredentials.create(awsConfig.getCredentials().getAccessKey(), awsConfig.getCredentials().getSecretKey());
+        return DynamoDbAsyncClient.builder().endpointOverride(uri)
+                .region(region)
+                .credentialsProvider(StaticCredentialsProvider.create(credentials))
                 .build();
     }
     @Bean
